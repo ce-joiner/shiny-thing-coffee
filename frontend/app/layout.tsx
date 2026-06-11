@@ -33,14 +33,22 @@ export async function generateMetadata(): Promise<Metadata> {
     // ignore
   }
   return {
-    metadataBase,
+    // Falls back to the production domain so the Open Graph image resolves to an
+    // absolute URL when no Sanity-configured metadataBase is present.
+    metadataBase: metadataBase ?? new URL('https://shinythingcoffee.com'),
     title: {
       template: `%s | ${title}`,
       default: title,
     },
     description: toPlainText(description),
     openGraph: {
-      images: ogImage ? [ogImage] : [],
+      type: 'website',
+      // When Sanity has no ogImage, omit `images` so the file-based
+      // app/opengraph-image route is used as the default share card.
+      ...(ogImage ? {images: [ogImage]} : {}),
+    },
+    twitter: {
+      card: 'summary_large_image',
     },
   }
 }
