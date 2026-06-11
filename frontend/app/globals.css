@@ -23,6 +23,18 @@
 @theme {
   --shadow-layer: 0 35px 60px -15px rgba(0, 0, 0, 0.3);
 
+  --font-mono: var(--font-martian-mono), ui-monospace, monospace;
+
+  /* Shiny Thing Coffee brand tokens */
+  --color-st-bg: #fff1e7;
+  --color-st-black: #332d2c;
+  --color-st-dark-blue: #054496;
+  --color-st-light-blue: #6ad0ef;
+  --color-st-green: #008b5f;
+  --color-st-red: #ff0000;
+  --color-st-pink: #ffa3ae;
+  --color-st-orange: #f2623f;
+
   --color-framework: #000;
   --color-black: #0b0b0b;
   --color-white: #fff;
