@@ -18,7 +18,7 @@ const WIGGLE_PATH =
 const UNIT = 'comingsoon'
 const REPEAT = 40
 const CRAWL_TEXT = UNIT.repeat(REPEAT)
-const CRAWL_SECONDS = 20 // time to advance exactly one unit → perfectly seamless loop
+const CRAWL_SECONDS = 9 // time to advance exactly one unit → perfectly seamless loop
 
 export default function Page() {
   const [scale, setScale] = useState(1)
@@ -38,9 +38,16 @@ export default function Page() {
   const unitLen = useRef(0)
 
   useEffect(() => {
-    if (textRef.current) {
-      unitLen.current = textRef.current.getComputedTextLength() / REPEAT
+    const measure = () => {
+      if (textRef.current) {
+        unitLen.current = textRef.current.getComputedTextLength() / REPEAT
+      }
     }
+    // Measure only once the Martian Mono web font is actually applied. Measuring
+    // before it loads captures the fallback font's metrics, so the crawl would
+    // wrap modulo a slightly-wrong unit and the seam would glitch every cycle.
+    measure()
+    document.fonts.ready.then(measure)
   }, [])
 
   useAnimationFrame((t) => {
