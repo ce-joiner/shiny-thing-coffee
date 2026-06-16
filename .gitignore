@@ -30,3 +30,6 @@ next-env.d.ts
 # VS Code
 .vscode
 .env*
+
+# Claude Code
+.claude/settings.local.json
